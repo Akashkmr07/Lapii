@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lapii Store - Home</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background: rgba(20, 20, 20, 0.9);
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Include Header -->
+    <%- include('../component/header.ejs') %>
+
+        <!-- Carousel Section -->
+        <div id="laptopCarousel" class="carousel slide mt-3" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="1000">
+                    <!-- 1 second -->
+                    <img src="/images/carousel1.jpg" class="d-block w-100" alt="Laptop 1">
+                </div>
+                <div class="carousel-item" data-bs-interval="1000">
+                    <!-- 1 second -->
+                    <img src="/images/carousel2.jpg" class="d-block w-100" alt="Laptop 2">
+                </div>
+                <div class="carousel-item" data-bs-interval="1000">
+                    <!-- 1 second -->
+                    <img src="/images/carousel3.jpg" class="d-block w-100" alt="Laptop 3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#laptopCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#laptopCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+
+
+        <!-- Gaming Laptop Section -->
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Best Gaming Laptops</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="/images/laptop.jpg" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-md-6">
+                    <h3>ASUS ROG Strix G15</h3>
+                    <p><strong>Processor:</strong> AMD Ryzen 9 5900HX</p>
+                    <p><strong>Graphics:</strong> NVIDIA GeForce RTX 3070</p>
+                    <p><strong>RAM:</strong> 16GB DDR4</p>
+                    <p><strong>Storage:</strong> 1TB SSD</p>
+                    <button class="btn btn-success">Buy Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Lapii Store -->
+        <div class="container mt-5 text-center">
+            <h2>About Lapii Store</h2>
+            <p>Lapii Store is a trusted online marketplace for the latest laptops, accessories, and gaming laptops at the best prices.</p>
+        </div>
+
+        <!-- Laptop Sales Chart -->
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Laptop Sales in 2024</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Dell</h5>
+                            <p class="card-text">Sales: 45,000 units</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">HP</h5>
+                            <p class="card-text">Sales: 38,000 units</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Asus</h5>
+                            <p class="card-text">Sales: 50,000 units</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Include Footer -->
+        <%- include('../component/footer') %>
+
+            <!-- Login Popup (Bootstrap Modal) -->
+            <div class="modal fade text-black-50" id="loginPopup" tabindex="-1" aria-labelledby="loginPopupLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="loginPopupLabel">Login Required</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <i class="bi bi-person-circle fs-1"></i>
+                            <h3>Login Required</h3>
+                            <button onclick="redirectToLogin()" class="btn btn-primary">Go to Login</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JavaScript to Show Popup on Any Click -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    var loginPopup = new bootstrap.Modal(document.getElementById("loginPopup"));
+
+                    // Show modal when clicking anywhere on the page
+                    document.body.addEventListener("click", function() {
+                        loginPopup.show();
+                    });
+
+                    // Prevent modal from closing when clicking outside
+                    document.getElementById("loginPopup").addEventListener("click", function(event) {
+                        event.stopPropagation(); // Prevents the event from bubbling up to body
+                    });
+
+                    // Allow closing only via the close button
+                    document.querySelector("#loginPopup .btn-close").addEventListener("click", function() {
+                        loginPopup.hide();
+                    });
+                });
+
+                function redirectToLogin() {
+                    window.location.href = "/";
+                }
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    var myCarousel = new bootstrap.Carousel(document.getElementById("laptopCarousel"), {
+                        interval: 1000, // Change slide every 1 second
+                        ride: "carousel"
+                    });
+                });
+            </script>
+
+</body>
+
+</html>

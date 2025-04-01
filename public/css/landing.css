@@ -1,0 +1,99 @@
+/* General Page Styling */
+
+body {
+    background: rgba(20, 20, 20, 0.9);
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Arial', sans-serif;
+}
+
+
+/* Carousel Styling */
+
+.carousel-inner img {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Animation for smooth transition */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.carousel-item {
+    animation: fadeIn 1s ease-in-out;
+}
+
+
+/* Section Styling */
+
+.container {
+    background: rgba(50, 50, 50, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    animation: fadeIn 1s ease-in-out;
+}
+
+
+/* Button Styling */
+
+.btn-success {
+    background: rgba(0, 200, 100, 0.8);
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-success:hover {
+    background: rgba(0, 255, 150, 1);
+    transform: scale(1.05);
+}
+
+
+/* Cards */
+
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+
+/* Modal Popup */
+
+.modal-content {
+    background: rgba(30, 30, 30, 0.9);
+    color: white;
+}
+
+
+/* Login Popup Animation */
+
+@keyframes popup {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal.show .modal-dialog {
+    animation: popup 0.3s ease-in-out;
+}

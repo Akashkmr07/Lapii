@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: rgb(218, 251, 237);
+            background: linear-gradient(90deg, rgba(218, 251, 237, 1) 1%, rgba(251, 249, 218, 1) 100%, rgba(233, 208, 141, 1) 100%, rgba(255, 146, 0, 1) 200%);
+            scroll-behavior: smooth;
+        }
+        
+        .nav-link {
+            color: white !important;
+        }
+        
+        .count-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 12px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 3px 7px;
+        }
+        
+        .dropdown-item:hover {
+            background-color: red;
+            color: white !important;
+        }
+        
+        .carousel-item {
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .carousel-item.active {
+            opacity: 1;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .content {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            text-align: center;
+            color: white;
+            z-index: 10;
+            width: 90%;
+        }
+        /* CSS Grid for Cards */
+        
+        #laptopGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            /* Responsive grid */
+            gap: 10px;
+            /* Less space between cards */
+            justify-content: center;
+            align-items: center;
+            max-width: 900px;
+            margin: auto;
+        }
+        
+        .card {
+            border-radius: 10px;
+            background: white;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .card:hover {
+            transform: scale(1.05);
+        }
+        
+        .rating {
+            color: gold;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                top: 70%;
+                transform: translate(-50%, -30%);
+            }
+            #laptopGrid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                /* Smaller size on small screens */
+            }
+        }
+        
+        #productGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            justify-content: center;
+            max-width: 1000px;
+            margin: auto;
+        }
+        /* Card Styling */
+        
+        .cardd {
+            background: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .cardd img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+        
+        .cardd:hover {
+            transform: scale(1.05);
+        }
+        /* Smooth Scroll Animation */
+        
+        .proim {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .proim.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Responsive Grid */
+        
+        @media (max-width: 768px) {
+            #productGrid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            }
+        }
+        /* Light Grey-Black Background */
+        
+        .feature-section {
+            background-color: #001c26;
+            color: white;
+        }
+        /* Feature Box Styling */
+        
+        .feature-box {
+            background: transparent;
+            padding: 20px;
+            text-align: center;
+        }
+        /* Circular Icons */
+        
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .icon-circle i {
+            font-size: 32px;
+            color: #007bff;
+        }
+        /* Hover Effect */
+        
+        .feature-box:hover .icon-circle {
+            transform: scale(1.1);
+        }
+        
+        .review-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .rating-box {
+            background: linear-gradient(135deg, #0044ff, #001f99);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 280px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .rating-box h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        
+        .progress {
+            height: 8px;
+            background-color: #ddd;
+        }
+        
+        .review-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .review-card img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        
+        .stars {
+            color: gold;
+        }
+        
+        .pdid .card {
+            max-width: 220px;
+            margin: auto;
+        }
+        
+        .pdid img {
+            height: 150px;
+            object-fit: cover;
+        }
+        /* Notification Styling */
+        
+        .notification {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            display: none;
+            z-index: 1000;
+            animation: fadeInOut 2s ease-in-out;
+        }
+        /* Heart Fill Animation */
+        
+        .heart-fill {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        
+        .heart-fill::after {
+            content: "❤️";
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: red;
+            transition: top 0.5s ease-in-out;
+        }
+        
+        .heart-filled.heart-fill::after {
+            top: 0;
+        }
+        /* Notification Fade Effect */
+        
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Lapii Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <!-- Home -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+
+                    <!-- Laptops Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="laptopsDropdown" role="button" data-bs-toggle="dropdown">
+                            Laptops
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Dell</a></li>
+                            <li><a class="dropdown-item" href="#">HP</a></li>
+                            <li><a class="dropdown-item" href="#">Asus</a></li>
+                            <li><a class="dropdown-item" href="#">Lenovo</a></li>
+                            <li><a class="dropdown-item" href="#">Apple</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Accessories Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accessoriesDropdown" role="button" data-bs-toggle="dropdown">
+                            Accessories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Mouse</a></li>
+                            <li><a class="dropdown-item" href="#">Keyboard</a></li>
+                            <li><a class="dropdown-item" href="#">Laptop Bags</a></li>
+                            <li><a class="dropdown-item" href="#">Cooling Pads</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Right Side Icons & Buttons -->
+                <ul class="navbar-nav ms-auto">
+                    <!-- Wishlist Icon -->
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="#"><i class="bi bi-heart"></i> Wishlist <span class="count-badge" id="wishlist-count">0</span></a>
+                    </li>
+
+                    <!-- Cart Icon -->
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="#"><i class="bi bi-cart"></i> Cart <span class="count-badge" id="cart-count">0</span></a>
+                    </li>
+
+                    <!-- User Icon with Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#" id="logout">Logout</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Background Carousel -->
+    <div id="backgroundCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#backgroundCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#backgroundCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+
+        <div class="overlay"></div>
+
+        <div class="content container">
+            <h2 class="mb-4">Top Laptops for Sale</h2>
+            <div id="laptopGrid"></div>
+        </div>
+    </div>
+
+    <!-- Proim box -->
+    <div class="container mt-4" id="ani">
+        <h3>Accessories & Laptops</h3>
+        <div id="productGrid">
+            <% let productss = [
+                { name: "Tablet", img: "https://via.placeholder.com/100?text=Tablet" },
+                { name: "Smartphone", img: "https://via.placeholder.com/100?text=Smartphone" },
+                { name: "Game Console", img: "https://via.placeholder.com/100?text=Console" },
+                { name: "Camera", img: "https://via.placeholder.com/100?text=Camera" },
+                { name: "Smartwatch", img: "https://via.placeholder.com/100?text=Smartwatch" },
+                { name: "Drone & Flycam", img: "https://via.placeholder.com/100?text=Drone" },
+                { name: "Audio", img: "https://via.placeholder.com/100?text=Audio" },
+                { name: "Computer", img: "https://via.placeholder.com/100?text=Computer" },
+                { name: "Dell", img: "https://via.placeholder.com/100?text=Dell" },
+                { name: "HP", img: "https://via.placeholder.com/100?text=HP" },
+                { name: "Lenovo", img: "https://via.placeholder.com/100?text=Lenovo" },
+                { name: "Apple", img: "https://via.placeholder.com/100?text=Apple" },
+                { name: "Asus", img: "https://via.placeholder.com/100?text=Asus" },
+                { name: "Acer", img: "https://via.placeholder.com/100?text=Acer" },
+                { name: "MSI", img: "https://via.placeholder.com/100?text=MSI" },
+                { name: "Razer", img: "https://via.placeholder.com/100?text=Razer" }
+            ]; %>
+
+                <% productss.forEach(product => { %>
+                    <div class="cardd proim">
+                        <img src="<%= product.img %>" alt="<%= product.name %>">
+                        <p>
+                            <%= productss.name %>
+                        </p>
+                    </div>
+                    <% }); %>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6 proim">
+                <img src="https://images.unsplash.com/photo-1642983883699-c9354c3b610e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fHw%3D" class="img-fluid" alt="Left Image">
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12 proim">
+                        <img src="https://images.unsplash.com/photo-1595303526913-c7037797ebe7?q=80&w=2129&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-fluid" alt="Top Right Image">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 proim mt-3">
+                        <img src="https://images.unsplash.com/photo-1698934688862-c177cca82c9d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-fluid" alt="Bottom Right Image" style="height: 325px;">
+                    </div>
+                    <div class="col-md-6 proim mt-3">
+                        <img src="https://images.unsplash.com/photo-1698934688862-c177cca82c9d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-fluid" alt="Bottom Right Image" style="height: 325px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Product List</h2>
+
+        <% if (message) { %>
+            <div class="alert alert-danger text-center">
+                <%= message %>
+            </div>
+            <% } %>
+
+                <% if (products.length > 0) { %>
+                    <div class="row">
+                        <% products.forEach(product => { %>
+                            <div class="col-md-3 pdid">
+
+                                <div class="card mb-3">
+                                    <img src="<%= product.image %>" class="card-img-top" alt="<%= product.name %>">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%= product.name %>
+                                                <span class="float-end">
+                                        <i class="bi bi-heart text-danger"></i> 
+                                    </span>
+                                        </h5>
+                                        <p class="card-text">Price: ₹
+                                            <%= product.price %>
+                                        </p>
+                                        <p class="card-text">Category:
+                                            <%= product.category %>
+                                        </p>
+                                        <p class="card-text">Discount:
+                                            <%= product.discount %>% off</p>
+                                        <button class="btn btn-success w-100">Add to Cart</button>
+                                        <!-- Added to cart -->
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                    <% } else { %>
+                        <p class="text-center text-muted">No products available.</p>
+                        <% } %>
+                            <div id="notification" class="notification"></div>
+    </div>
+
+
+    <!-- review -->
+    <div class="container my-5">
+        <div class="row g-4">
+            <!-- Left: Rating Summary -->
+            <div class="col-md-3">
+                <div class="rating-box">
+                    <h1>4.9</h1>
+                    <p>Based on 5000+ reviews</p>
+                    <div class="text-start">
+                        <p>★★★★★ <span class="progress"><div class="progress-bar bg-success" style="width: 95%;"></div></span></p>
+                        <p>★★★★☆ <span class="progress"><div class="progress-bar bg-primary" style="width: 5%;"></div></span></p>
+                        <p>★★★☆☆ <span class="progress"><div class="progress-bar bg-info" style="width: 0%;"></div></span></p>
+                        <p>★★☆☆☆ <span class="progress"><div class="progress-bar bg-warning" style="width: 0%;"></div></span></p>
+                        <p>★☆☆☆☆ <span class="progress"><div class="progress-bar bg-danger" style="width: 0%;"></div></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Reviews Grid -->
+            <div class="col-md-9">
+                <div id="review-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                    <!-- Reviews will be inserted here by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- //box -->
+    <div class="container-fluid feature-section py-5 proim">
+        <div class="container text-center proim">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="icon-circle">
+                            <i class="bi bi-truck"></i>
+                        </div>
+                        <h5 class="mt-3">FREE US DELIVERY</h5>
+                        <p>For US customers (including Alaska and Hawaii) on orders over $200.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="icon-circle">
+                            <i class="bi bi-credit-card"></i>
+                        </div>
+                        <h5 class="mt-3">SECURE PAYMENT</h5>
+                        <p>We accept Visa, American Express, PayPal, Payoneer, Mastercard, and Discover.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="icon-circle">
+                            <i class="bi bi-shield-lock"></i>
+                        </div>
+                        <h5 class="mt-3">3 YEAR WARRANTY</h5>
+                        <p>All our products are made with care and covered for three years against defects.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="icon-circle">
+                            <i class="bi bi-headset"></i>
+                        </div>
+                        <h5 class="mt-3">SUPPORT 24/7</h5>
+                        <p>Contact us 24 hours a day, 7 days a week. Call: 0123-456-789.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- //footer -->
+    <footer class="footer bg-dark text-white pt-5 pb-4 ">
+        <div class="container proim">
+            <div class="row">
+                <!-- Our Locations -->
+                <div class="col-md-3">
+                    <h5 class="text-success">OUR LOCATIONS</h5>
+                    <p><i class="fas fa-map-marker-alt text-success"></i> <strong>Miami Store:</strong> 15 West 21th Street, Miami FL, USA</p>
+                    <p><i class="fas fa-map-marker-alt text-success"></i> <strong>Chicago Store:</strong> 5400 N. Lakewood Ave, Chicago, IL 60640</p>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="col-md-3">
+                    <h5>NEWSLETTER</h5>
+                    <p>Get 15% off your first purchase! Be the first to know about sales, new product launches, and exclusive offers.</p>
+                    <form class="input-group">
+                        <input type="email" class="form-control" placeholder="Enter your email">
+                        <button class="btn btn-light" type="submit">Submit</button>
+                    </form>
+                    <p class="mt-3"><i class="fas fa-headset text-success"></i> <strong>Call Us Now:</strong> <span class="text-success">+123-456-789</span></p>
+                    <p><i class="fas fa-envelope"></i> Email: info@example.com</p>
+                </div>
+
+                <!-- Customer Care & Help -->
+                <div class="col-md-2">
+                    <h5>CUSTOMER CARE</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">FAQs</a></li>
+                        <li><a href="#" class="text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-white">Contact Us</a></li>
+                        <li><a href="#" class="text-white">Gift Card</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-2">
+                    <h5>HELP & SUPPORT</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Shipping Info</a></li>
+                        <li><a href="#" class="text-white">Returns</a></li>
+                        <li><a href="#" class="text-white">How To Order</a></li>
+                        <li><a href="#" class="text-white">How To Track</a></li>
+                        <li><a href="#" class="text-white">Size Guide</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company Info -->
+                <div class="col-md-2">
+                    <h5>COMPANY INFO</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">About Us</a></li>
+                        <li><a href="#" class="text-white">Our Blog</a></li>
+                        <li><a href="#" class="text-white">Careers</a></li>
+                        <li><a href="#" class="text-white">Store Locations</a></li>
+                        <li><a href="#" class="text-white">Testimonials</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="bg-white">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 Vinovathemes. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-pinterest"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-vimeo-v"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById("logout").addEventListener("click", function() {
+            window.location.href = "/";
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+            let wishlist = new Set();
+            let cart = new Set();
+
+            const wishlistCount = document.getElementById("wishlist-count");
+            const cartCount = document.getElementById("cart-count");
+            const notification = document.getElementById("notification");
+
+            function showNotification(message, color) {
+                notification.innerText = message;
+                notification.style.backgroundColor = color;
+                notification.style.display = "block";
+
+                setTimeout(() => {
+                    notification.style.display = "none";
+                }, 2000);
+            }
+
+            document.querySelectorAll(".bi-heart").forEach((heartIcon) => {
+                heartIcon.addEventListener("click", function() {
+                    const productName = this.closest(".card").querySelector(".card-title").innerText.trim();
+
+                    if (wishlist.has(productName)) {
+                        wishlist.delete(productName);
+                        this.classList.remove("heart-filled");
+                        showNotification("Removed from Wishlist ❌", "#dc3545");
+                    } else {
+                        wishlist.add(productName);
+                        this.classList.add("heart-filled", "heart-fill");
+                        showNotification("Added to Wishlist ❤️", "#17a2b8");
+                    }
+
+                    wishlistCount.innerText = wishlist.size;
+                });
+            });
+
+            document.querySelectorAll(".btn-success").forEach((cartBtn) => {
+                cartBtn.addEventListener("click", function() {
+                    const productName = this.closest(".card").querySelector(".card-title").innerText.trim();
+
+                    if (!cart.has(productName)) {
+                        cart.add(productName);
+                        cartCount.innerText = cart.size;
+                        showNotification("Added to Cart 🛒", "#ffc107");
+                    }
+                });
+            });
+        });
+
+        const laptops = [{
+            name: "Dell XPS 15",
+            desc: "11th Gen Intel i7",
+            price: "$1,599",
+            rating: "⭐⭐⭐⭐⭐",
+            img: "https://via.placeholder.com/200"
+        }, {
+            name: "HP Spectre x360",
+            desc: "Convertible touchscreen",
+            price: "$1,299",
+            rating: "⭐⭐⭐⭐",
+            img: "https://via.placeholder.com/200"
+        }, {
+            name: "MacBook Air M2",
+            desc: "Lightweight Apple laptop",
+            price: "$1,199",
+            rating: "⭐⭐⭐⭐⭐",
+            img: "https://via.placeholder.com/200"
+        }];
+
+        let cardsHTML = "";
+        laptops.forEach(laptop => {
+            cardsHTML += `<div class="card">
+            <img src="${laptop.img}" class="card-img-top" alt="${laptop.name}">
+            <div class="card-body">
+                <h5 class="card-title">${laptop.name}</h5>
+                <p class="card-text">${laptop.desc}</p>
+                <p class="rating">${laptop.rating}</p>
+                <p class="fw-bold">${laptop.price}</p>
+            </div>
+        </div>`;
+        });
+
+        document.getElementById("laptopGrid").innerHTML = cardsHTML;
+
+
+        // proim
+
+        document.addEventListener("scroll", function() {
+            let elements = document.querySelectorAll(".proim");
+            let windowHeight = window.innerHeight;
+
+            elements.forEach(element => {
+                let position = element.getBoundingClientRect().top;
+                if (position < windowHeight - 50) {
+                    element.classList.add("visible");
+                } else {
+                    element.classList.remove("visible");
+                }
+            });
+        });
+
+
+        const reviews = [{
+            name: "Alice",
+            comment: "Great service! The team was very professional and helpful throughout the process. I will definitely recommend them to my friends.",
+            image: "https://randomuser.me/api/portraits/women/1.jpg"
+        }, {
+            name: "Bob",
+            comment: "Very satisfied! The customer support was responsive, and the quality of the service exceeded my expectations. Will come back again!",
+            image: "https://randomuser.me/api/portraits/men/2.jpg"
+        }, {
+            name: "Charlie",
+            comment: "Highly recommended! The experience was seamless, and the attention to detail was impressive. A truly customer-friendly service.",
+            image: "https://randomuser.me/api/portraits/men/3.jpg"
+        }, {
+            name: "Daisy",
+            comment: "Loved it! Everything was handled smoothly, and the staff was super friendly. The best decision I made in a long time.",
+            image: "https://randomuser.me/api/portraits/women/4.jpg"
+        }, {
+            name: "Ethan",
+            comment: "Would buy again! The product was exactly as described, and delivery was fast. Looking forward to my next purchase!",
+            image: "https://randomuser.me/api/portraits/men/5.jpg"
+        }, {
+            name: "Sophia",
+            comment: "Exceptional experience! The support team went above and beyond to ensure everything was perfect. Five stars from me!",
+            image: "https://randomuser.me/api/portraits/women/6.jpg"
+        }, {
+            name: "James",
+            comment: "Fast and reliable service. I had an issue, and it was resolved within minutes. Very impressed with the professionalism!",
+            image: "https://randomuser.me/api/portraits/men/7.jpg"
+        }];
+
+
+        // Function to dynamically render reviews on the client side
+        function renderReviews() {
+            const container = document.getElementById('review-container');
+            container.innerHTML = ""; // Clear existing reviews
+
+            reviews.forEach(review => {
+                const card = `
+                <div class="col">
+                    <div class="review-card">
+                        <div class="d-flex align-items-center">
+                            <img src="${review.image}" class="profile-img" alt="User">
+                            <h5 class="mb-0">${review.name}</h5>
+                        </div>
+                        <p class="review-text mt-2">${review.comment}</p>
+                    </div>
+                </div>
+            `;
+                container.innerHTML += card;
+            });
+        }
+
+        // Load reviews when the page is loaded
+        document.addEventListener("DOMContentLoaded", renderReviews);
+    </script>
+</body>
+
+</html>
